@@ -1,15 +1,15 @@
 from typing import Dict, Any
 from datetime import datetime
 
-from clients.openai_client import OpenAIClient
+from clients.gemini_client import GeminiClient
 from config.logger import logger
 
 
 class WorkoutAnalyzer:
     """Analyzes completed workouts to extract insights and feedback."""
     
-    def __init__(self, openai_client: OpenAIClient) -> None:
-        self.openai_client = openai_client
+    def __init__(self, gemini_client: GeminiClient) -> None:
+        self.gemini_client = gemini_client
         logger.info("WorkoutAnalyzer initialized")
     
     def analyze_workout(
@@ -27,7 +27,7 @@ class WorkoutAnalyzer:
                 user_profile
             )
             
-            response = self.openai_client.generate_completion(
+            response = self.gemini_client.generate_completion(
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
                 response_format={"type": "json_object"}
@@ -60,7 +60,7 @@ Return as JSON."""
             
             user_prompt = f"Extract workout feedback from this text:\n\n{notion_page_content}"
             
-            response = self.openai_client.generate_completion(
+            response = self.gemini_client.generate_completion(
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
                 response_format={"type": "json_object"}

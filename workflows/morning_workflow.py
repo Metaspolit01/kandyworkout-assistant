@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Dict, Any
 
-from clients.openai_client import OpenAIClient
+from clients.gemini_client import GeminiClient
 from clients.supabase_client import SupabaseClient
 from clients.notion_client import NotionClientWrapper
 from repositories.user_repository import UserRepository
@@ -18,11 +18,11 @@ class MorningWorkflow:
     
     def __init__(
         self,
-        openai_client: OpenAIClient,
+        gemini_client: GeminiClient,
         supabase_client: SupabaseClient,
         notion_client: NotionClientWrapper
     ) -> None:
-        self.openai_client = openai_client
+        self.gemini_client = gemini_client
         self.supabase_client = supabase_client
         self.notion_client = notion_client
         
@@ -33,7 +33,7 @@ class MorningWorkflow:
         
         # Initialize services
         self.workout_planner = WorkoutPlanner()
-        self.workout_generator = WorkoutGenerator(openai_client, self.workout_planner)
+        self.workout_generator = WorkoutGenerator(self.gemini_client, self.workout_planner)
         self.coach_memory_service = CoachMemoryService(self.coach_memory_repo)
         
         logger.info("MorningWorkflow initialized")

@@ -15,7 +15,7 @@ An intelligent calisthenics workout coach that generates personalized daily work
 ## Tech Stack
 
 - **Python 3.12+**
-- **OpenAI GPT-4** for workout generation and analysis
+- **Google Gemini** for workout generation and analysis
 - **Supabase** for PostgreSQL database
 - **Notion API** for workout page creation
 - **Pydantic** for data validation
@@ -25,7 +25,7 @@ An intelligent calisthenics workout coach that generates personalized daily work
 
 ```
 kandy-ai/
-├── clients/              # API clients (OpenAI, Supabase, Notion)
+├── clients/              # API clients (Gemini, Supabase, Notion)
 ├── config/               # Configuration and logging
 ├── database/             # SQL migrations and seed data
 ├── models/               # Pydantic models
@@ -123,7 +123,7 @@ Create a Notion database with the following properties:
 
 Add the following secrets to your GitHub repository:
 
-- `OPENAI_API_KEY`
+- `GEMINI_API_KEY`
 - `SUPABASE_URL`
 - `SUPABASE_KEY`
 - `NOTION_TOKEN`

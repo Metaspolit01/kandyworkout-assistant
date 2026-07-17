@@ -1,7 +1,7 @@
 from datetime import datetime
 import sys
 
-from clients.openai_client import OpenAIClient
+from clients.gemini_client import GeminiClient
 from clients.supabase_client import SupabaseClient
 from clients.notion_client import NotionClientWrapper
 from workflows.morning_workflow import MorningWorkflow
@@ -18,15 +18,15 @@ def main():
     workflow_type = sys.argv[1].lower()
     
     # Initialize clients
-    openai_client = OpenAIClient()
+    gemini_client = GeminiClient()
     supabase_client = SupabaseClient()
     notion_client = NotionClientWrapper()
     
     if workflow_type == "morning":
-        workflow = MorningWorkflow(openai_client, supabase_client, notion_client)
+        workflow = MorningWorkflow(gemini_client, supabase_client, notion_client)
         result = workflow.execute()
     elif workflow_type == "night":
-        workflow = NightWorkflow(openai_client, supabase_client, notion_client)
+        workflow = NightWorkflow(gemini_client, supabase_client, notion_client)
         result = workflow.execute()
     else:
         logger.error(f"Unknown workflow type: {workflow_type}")

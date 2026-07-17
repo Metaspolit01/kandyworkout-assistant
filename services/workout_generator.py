@@ -1,16 +1,16 @@
 from typing import Dict, Any
 from datetime import datetime
 
-from clients.openai_client import OpenAIClient
+from clients.gemini_client import GeminiClient
 from services.workout_planner import WorkoutPlanner, WorkoutDay
 from config.logger import logger
 
 
 class WorkoutGenerator:
-    """Generates workout plans using OpenAI GPT."""
+    """Generates workout plans using Google Gemini."""
     
-    def __init__(self, openai_client: OpenAIClient, workout_planner: WorkoutPlanner) -> None:
-        self.openai_client = openai_client
+    def __init__(self, gemini_client: GeminiClient, workout_planner: WorkoutPlanner) -> None:
+        self.gemini_client = gemini_client
         self.workout_planner = workout_planner
         logger.info("WorkoutGenerator initialized")
     
@@ -38,7 +38,7 @@ class WorkoutGenerator:
                 date
             )
             
-            response = self.openai_client.generate_completion(
+            response = self.gemini_client.generate_completion(
                 system_prompt=system_prompt,
                 user_prompt=user_prompt,
                 response_format={"type": "json_object"}
