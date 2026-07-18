@@ -13,14 +13,13 @@ class UserRepository:
         self.table = "users"
     
     def get_by_name(self, name: str) -> Optional[Dict[str, Any]]:
-        """Get user by name."""
+        """Get user by name (case-insensitive)."""
         try:
-            results = self.client.fetch(
-                self.table,
-                filters={"name": name},
-                limit=1
-            )
-            return results[0] if results else None
+            users = self.get_all()
+            for user in users:
+                if user.get("name", "").lower() == name.lower():
+                    return user
+            return None
         except Exception as e:
             logger.error(f"Error getting user by name: {e}", exc_info=True)
             raise

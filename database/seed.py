@@ -32,7 +32,7 @@ def seed():
     db = _get_admin_client()
 
     # ── 1. Upsert user ────────────────────────────────────────────────────────
-    existing = db.table("users").select("*").eq("name", settings.USER_NAME).limit(1).execute()
+    existing = db.table("users").select("*").ilike("name", settings.USER_NAME).limit(1).execute()
 
     if existing.data:
         user = existing.data[0]
