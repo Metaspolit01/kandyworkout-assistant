@@ -20,6 +20,7 @@ class Settings(BaseSettings):
     # Supabase
     SUPABASE_URL: str
     SUPABASE_KEY: str
+    SUPABASE_SERVICE_KEY: str = ""  # service_role key — bypasses RLS (used for seeding)
     
     # Notion
     NOTION_TOKEN: str
