@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     
     # Gemini
     GEMINI_API_KEY: str
-    GEMINI_MODEL: str = "gemini-2.0-flash"
+    GEMINI_MODEL: str = "gemini-3.5-flash-lite"
     GEMINI_TEMPERATURE: float = 0.7
     GEMINI_MAX_TOKENS: int = 2000
     
