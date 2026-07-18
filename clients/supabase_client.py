@@ -11,9 +11,10 @@ class SupabaseClient:
     """Supabase client with retry logic."""
     
     def __init__(self) -> None:
+        key = settings.SUPABASE_SERVICE_KEY or settings.SUPABASE_KEY
         self.client: Client = create_client(
             settings.SUPABASE_URL,
-            settings.SUPABASE_KEY
+            key
         )
         logger.info("Supabase client initialized")
     
