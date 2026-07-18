@@ -149,6 +149,6 @@ class MorningWorkflow:
             date=date_str
         )
     
-    def _update_workout_nion_id(self, workout_id: int, notion_page_id: str) -> None:
+    def _update_workout_notion_id(self, workout_id: int, notion_page_id: str) -> None:
         """Update workout with Notion page ID."""
         self.workout_repo.update_notion_page_id(workout_id, notion_page_id)
