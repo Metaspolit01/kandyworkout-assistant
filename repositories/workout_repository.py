@@ -87,6 +87,40 @@ class WorkoutRepository:
             logger.error(f"Error creating workout: {e}", exc_info=True)
             raise
     
+    def upsert(self, workout_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Upsert workout data (insert or update based on date)."""
+        try:
+            workout_date = workout_data.get("date")
+            if not workout_date:
+                logger.warning("No date found in workout_data; falling back to create")
+                return self.create(workout_data)
+            
+            # Format the date properly for comparison and database format
+            if isinstance(workout_date, (datetime, date)):
+                workout_date_obj = workout_date
+                if isinstance(workout_date, datetime):
+                    workout_date_obj = workout_date.date()
+                date_str = workout_date_obj.strftime("%Y-%m-%d")
+            else:
+                # Assuming it's a string, format or parse it
+                # If it's in ISO format (e.g. 2026-07-19T09:41:23) we take the date part
+                date_str = str(workout_date).split('T')[0]
+                workout_date_obj = datetime.strptime(date_str, "%Y-%m-%d").date()
+
+            # Ensure workout_data has the clean YYYY-MM-DD string format
+            workout_data["date"] = date_str
+            
+            existing = self.get_by_date(workout_date_obj)
+            if existing:
+                logger.info(f"Workout already exists for {date_str}. Updating existing workout (ID: {existing['id']})")
+                return self.update(existing["id"], workout_data)
+            else:
+                logger.info(f"Creating new workout for {date_str}")
+                return self.create(workout_data)
+        except Exception as e:
+            logger.error(f"Error upserting workout: {e}", exc_info=True)
+            raise
+    
     def update(self, workout_id: int, workout_data: Dict[str, Any]) -> Dict[str, Any]:
         """Update workout data."""
         try:

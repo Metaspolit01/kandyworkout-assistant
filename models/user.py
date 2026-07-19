@@ -1,6 +1,6 @@
 from datetime import datetime
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, Literal
 
 
 class User(BaseModel):
@@ -11,7 +11,7 @@ class User(BaseModel):
     age: int = Field(..., ge=1, le=120, description="User's age in years")
     height_cm: int = Field(..., ge=50, le=250, description="User's height in centimeters")
     weight_kg: float = Field(..., ge=20, le=300, description="User's weight in kilograms")
-    level: str = Field(..., description="Fitness level: beginner, intermediate, advanced")
+    level: Literal["beginner", "intermediate", "advanced"] = Field(..., description="Fitness level: beginner, intermediate, advanced")
     goal: str = Field(..., description="User's fitness goal")
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None

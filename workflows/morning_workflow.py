@@ -131,7 +131,7 @@ class MorningWorkflow:
     
     def _save_workout(self, workout_data: Dict[str, Any]) -> Dict[str, Any]:
         """Save workout to Supabase."""
-        return self.workout_repo.create(workout_data)
+        return self.workout_repo.upsert(workout_data)
     
     def _create_notion_page(
         self,
