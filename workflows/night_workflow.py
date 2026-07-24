@@ -1,4 +1,5 @@
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from typing import Dict, Any
 
 from clients.gemini_client import GeminiClient
@@ -47,7 +48,7 @@ class NightWorkflow:
     def execute(self, date: datetime = None) -> Dict[str, Any]:
         """Execute the night workflow."""
         if date is None:
-            date = datetime.now()
+            date = datetime.now(ZoneInfo('Asia/Kolkata'))
         
         logger.info(f"Starting night workflow for {date}")
         
@@ -271,13 +272,14 @@ class NightWorkflow:
         """Unlock an achievement for the user."""
         existing = self.achievements_repo.get_by_title(user_id, title)
         if not existing:
-            from datetime import date
+            from datetime import datetime
+            from zoneinfo import ZoneInfo
             self.achievements_repo.create({
                 "user_id": user_id,
                 "title": title,
                 "description": description,
                 "category": category,
-                "achieved_date": date.today(),
+                "achieved_date": datetime.now(ZoneInfo('Asia/Kolkata')).date(),
                 "icon": icon
             })
             logger.info(f"Unlocked achievement: {title}")

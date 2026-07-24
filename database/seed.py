@@ -9,7 +9,8 @@ Usage:
     python -m database.seed
 """
 
-from datetime import date
+from datetime import date, datetime
+from zoneinfo import ZoneInfo
 
 from supabase import create_client, Client
 from config.settings import settings
@@ -74,7 +75,7 @@ def seed():
         logger.info("Created initial coach memory.")
 
     # ── 3. Initial body measurement ───────────────────────────────────────────
-    today = date.today().isoformat()
+    today = datetime.now(ZoneInfo('Asia/Kolkata')).date().isoformat()
     existing_measurement = (
         db.table("body_measurements")
         .select("id")

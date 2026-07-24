@@ -1,5 +1,6 @@
 from typing import Dict, Any, Optional
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 from repositories.coach_memory_repository import CoachMemoryRepository
 from config.logger import logger
@@ -76,7 +77,7 @@ class CoachMemoryService:
                 "current_level": current_level,
                 "next_level": next_level,
                 "ready_for_progression": ready_for_progression,
-                "last_updated": datetime.now().isoformat()
+                "last_updated": datetime.now(ZoneInfo('Asia/Kolkata')).isoformat()
             }
             return self.set_memory(user_id, key, value, "progression")
         except Exception as e:
@@ -96,7 +97,7 @@ class CoachMemoryService:
             value = {
                 "max_reps": max_reps,
                 "trend": trend,
-                "last_updated": datetime.now().isoformat()
+                "last_updated": datetime.now(ZoneInfo('Asia/Kolkata')).isoformat()
             }
             return self.set_memory(user_id, key, value, "strength")
         except Exception as e:
@@ -116,7 +117,7 @@ class CoachMemoryService:
             value = {
                 "risk_level": risk_level,
                 "notes": notes,
-                "last_updated": datetime.now().isoformat()
+                "last_updated": datetime.now(ZoneInfo('Asia/Kolkata')).isoformat()
             }
             return self.set_memory(user_id, key, value, "injury_risk")
         except Exception as e:
@@ -150,7 +151,7 @@ class CoachMemoryService:
             
             value = {
                 "current_streak": new_streak,
-                "last_updated": datetime.now().isoformat()
+                "last_updated": datetime.now(ZoneInfo('Asia/Kolkata')).isoformat()
             }
             
             return self.set_memory(user_id, "consistency_streak", value, "consistency")

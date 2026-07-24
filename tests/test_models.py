@@ -1,5 +1,6 @@
 import pytest
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from pydantic import ValidationError
 
 from models.user import User
@@ -54,7 +55,7 @@ class TestWorkout:
     def test_valid_workout(self):
         """Test creating a valid workout."""
         workout = Workout(
-            date=datetime.now(),
+            date=datetime.now(ZoneInfo('Asia/Kolkata')),
             day_type=WorkoutDay.PUSH,
             greeting="Let's go!",
             warmup=WorkoutSection(name="Warm-up", exercises=[]),

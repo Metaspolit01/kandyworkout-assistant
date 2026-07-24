@@ -1,4 +1,5 @@
 from datetime import datetime
+from zoneinfo import ZoneInfo
 from typing import Dict, Any
 
 from clients.gemini_client import GeminiClient
@@ -41,7 +42,7 @@ class MorningWorkflow:
     def execute(self, date: datetime = None) -> Dict[str, Any]:
         """Execute the morning workflow."""
         if date is None:
-            date = datetime.now()
+            date = datetime.now(ZoneInfo('Asia/Kolkata'))
         
         logger.info(f"Starting morning workflow for {date}")
         
