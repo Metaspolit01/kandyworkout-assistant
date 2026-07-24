@@ -18,6 +18,11 @@ class GeminiClient:
     """Google Gemini client using the latest google-genai SDK."""
 
     def __init__(self) -> None:
+        if not settings.GEMINI_API_KEY:
+            raise ValueError(
+                "GEMINI_API_KEY is not set. "
+                "Add it to .env or as a GitHub Actions secret."
+            )
         self.client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
         self.model = settings.GEMINI_MODEL
